@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "zlVZc8MXMhdo5RnWgtfrr1QTkeANTjmJx2DtqwL35481JsZEhfItyes2QLNhv3zJouiZepAnHjvV0ta6UKu1Yw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\asuspc\\Downloads\\Archive\\Odev\\Odev.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\asuspc\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

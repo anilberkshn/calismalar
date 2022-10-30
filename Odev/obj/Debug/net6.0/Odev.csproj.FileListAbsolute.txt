@@ -1,0 +1,17 @@
+C:\Users\asuspc\Downloads\Archive\Odev\bin\Debug\net6.0\Odev.exe
+C:\Users\asuspc\Downloads\Archive\Odev\bin\Debug\net6.0\Odev.deps.json
+C:\Users\asuspc\Downloads\Archive\Odev\bin\Debug\net6.0\Odev.runtimeconfig.json
+C:\Users\asuspc\Downloads\Archive\Odev\bin\Debug\net6.0\Odev.dll
+C:\Users\asuspc\Downloads\Archive\Odev\bin\Debug\net6.0\Odev.pdb
+C:\Users\asuspc\Downloads\Archive\Odev\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.csproj.AssemblyReference.cache
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.AssemblyInfoInputs.cache
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.AssemblyInfo.cs
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.csproj.CoreCompileInputs.cache
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.csproj.CopyComplete
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.dll
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\refint\Odev.dll
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.pdb
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\Odev.genruntimeconfig.cache
+C:\Users\asuspc\Downloads\Archive\Odev\obj\Debug\net6.0\ref\Odev.dll
