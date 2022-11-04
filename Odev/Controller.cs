@@ -9,54 +9,53 @@ public class Controller
         _repository = repository;
     }
 
-    public User GetUser(string[] parts)
+    public User? GetUser(string[] parts)
     {
+        // get 12232u389rfndsaffkds98u3r41ıj
         //partların içinden id'yi çek ve aşağıdaki methoda yolla
-        return _repository.GetById("Buraya Id gelecek");
+        return _repository.GetById(parts[1]);
     }
-    
-    
-    
-    public List<User> Search(string keyword)
+
+
+    public List<User> Search(string[] parts)
     {
-        return _repository.SearchByName(keyword);
+        return _repository.SearchByName(parts[1]);
     }
 
     public List<User> GetAll()
     {
         return _repository.GetAll();
     }
-    
-    public string AddUser(List<string> parts)
+
+    public string AddUser(string[] parts)
     {
-        try
+        var user = new User
         {
-        
-            departmentInt = inputParts.Count == 5 ? int.Parse(inputParts[3]) : int.Parse(inputParts[4]);
-            if (departmentInt != 1 && departmentInt != 2 )
-            {
-                Console.WriteLine("Sayı 1 veya 2 olmalı");
-                continue;
-            }
-            
+            Id = Guid.NewGuid().ToString()
+        };
+
+        if (parts.Length == 5)
+        {
+            user.Admin = Convert.ToBoolean(parts[4]);
+            user.Department = int.Parse(parts[3]);
+            user.Surname = parts[2];
+            user.Name = parts[1];
         }
-        catch (Exception)
+        else
         {
-            Console.WriteLine("Girilen değer sayı olmalı ve Yanlızca  1 veya 2 girebilirsiniz");
-            continue;
+            user.Admin = Convert.ToBoolean(parts[5]);
+            user.Department = int.Parse(parts[4]);
+            user.Surname = parts[3];
+            user.Name = parts[1] + " " + parts[2];
         }
-        var id = controller.AddUser(new User()
+
+        if (user.Department is not ( 1 or 2))
         {
-            Admin = inputParts.Count == 5 ?  Convert.ToBoolean(inputParts[4]) : Convert.ToBoolean(inputParts[5]),
-            Department = departmentInt,  
-            Surname = inputParts.Count == 5 ? inputParts[2] : inputParts[3],
-            Name = inputParts.Count == 5 ? inputParts[1] : inputParts[1] + " " + inputParts[2],
-            Id =  Guid.NewGuid().ToString() 
-        });
-        
-        Console.WriteLine("id: " + id);
-        //parts dizisindeki verilere göre bir user oluştur ve bu userı insert methoduna gönder
-         _repository.Insert(new User());
-         return "yeni userın idsi";
+            throw new UnknownDepartmentException();
+        }
+
+        _repository.Insert(user);
+        _repository.SaveDb();
+        return user.Id;
     }
 }

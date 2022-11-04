@@ -1,6 +1,9 @@
 namespace Odev;
 
-public class UnnkownDepartmentException
+public class UnknownDepartmentException: SystemException
 {
-    
+    public UnknownDepartmentException()
+    {
+        
+    }
 }

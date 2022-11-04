@@ -13,4 +13,7 @@
     <SourceRoot Include="C:\Users\asuspc\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgGitForWindows Condition=" '$(PkgGitForWindows)' == '' ">C:\Users\asuspc\.nuget\packages\gitforwindows\2.38.1</PkgGitForWindows>
+  </PropertyGroup>
 </Project>

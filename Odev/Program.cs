@@ -1,75 +1,103 @@
 ﻿using Newtonsoft.Json;
 using Odev;
+//System.IndexOutOfRangeException: "get"
+////getall yazdığımızda uyarı vermedi.
+/// departman yerine her hangi bir sayı girilebiliryo
+//System.FormatException:  boolın değerde 
+//get  boşluk yazınca boş satır döndü.
 
-
-//User'ları txt dosyasından çek, json olarak oku, list<user>'ın içine at ve oluşturduğun userları repository'nin içine ver
+var filePath = @"C:\Users\asuspc\Desktop\dosyaTest1.txt";
 var users = new List<User>();
-string _filePath = @"C:\Users\asuspc\Desktop\dosyaTest1.txt";
-int departmentInt = 0;
-var jsonText = File.ReadAllText(_filePath);
-var users2 = JsonConvert.DeserializeObject<List<User>>(jsonText);
-if (users2 != null)
-{
-    users = users2;
-}
 
-//------------------------------------------
+var jsonText = File.ReadAllText(filePath);
+     var users2 = JsonConvert.DeserializeObject<List<User>>(jsonText);
+     if (users2 != null)
+     {
+         users = users2;
+     }
 
-
-var repository = new Repository(users); // Userı repositoryi
+var repository = new Repository(users,filePath);
 var controller = new Controller(repository);
 
 while (true)
 {
-    Console.Write("Bir komut giriniz    :");
-    string? input = Console.ReadLine(); //gelen cevabı oku
-    List<string> inputParts = new List<string>();
-    
-    if (input == null)
+    try
     {
-        Console.WriteLine("Boş giriş yapmamalısınız. ");
-        continue; //boş girdiyse uyarı ver, continue
-    }
-    else if (input == "exit")
-    {
-        Console.WriteLine("exit yazdığınız için program kapatılıyor.");
-        break;
-    }
-    else //dolu girdiyse parçala
-    {
-        inputParts = input.Split(' ').ToList(); 
-    }
+        Console.Write("Bir komut giriniz: ");
+        var input = Console.ReadLine();
 
-    try //ilk kelime search, get, add kelimelerinden biri değilse uyarı ver, continue
-    {
-        if (inputParts[0] != "add" || inputParts[0] !="search" || inputParts[0] !="get"|| inputParts[0] !="exit")
+        if (input == null)
         {
-            Console.WriteLine($"ilk girilen değer search, get, add veya exit kelimelerinden biri olmalıdır.");
             continue;
         }
-       
+
+        if (input.Equals("Exit", StringComparison.OrdinalIgnoreCase))
+        {
+            break;
+        }
+
+        var inputParts = input.Split(" ");
+
+        if (inputParts[0].Equals("get", StringComparison.OrdinalIgnoreCase))
+        {
+            if (inputParts[1].Equals("all", StringComparison.OrdinalIgnoreCase))
+            {
+                // controllerin getall metotu
+                var response = controller.GetAll();
+                foreach (var user in response)
+                {
+                    Console.WriteLine(user.PrintUser());
+                }
+
+            }
+
+            var userControl = controller.GetUser(inputParts);
+            if (userControl == null)
+            {
+                Console.WriteLine("Kullanıcı bulunamadı. ");
+                continue;
+            }
+
+            //controllerin getbyID 
+            Console.WriteLine(userControl.PrintUser());
+            continue;
+        }
+
+        if (inputParts[0].Equals("add", StringComparison.OrdinalIgnoreCase))
+        {
+            // controllerın add metotu
+            Console.WriteLine("Oluşturulan kayıt id'si: " + controller.AddUser(inputParts));
+            continue;
+        }
+
+        if (inputParts[0].Equals("search", StringComparison.OrdinalIgnoreCase))
+        {
+            // Controller search metot.
+            var response = controller.Search(inputParts);
+            foreach (var user in response)
+            {
+                Console.WriteLine(user.PrintUser());
+            }
+            continue;
+        }
+
+        Console.WriteLine("Bilinmeyen komut. ");
+
     }
-    catch (Exception e)
+    catch (IndexOutOfRangeException e)
     {
-        Console.WriteLine($"ilk girilen değer search, get, add veya exit kelimelerinden biri olmalıdır.");
+        Console.WriteLine("Girdiğiniz değerler eksik.");
         continue;
     }
-
-
-    // ilk kelimeye göre;
-
-    if (inputParts[0]== "add") //"ilk kelime eşitse add"
+    catch (FormatException)
     {
-       controller.AddUser(inputParts);
+        Console.WriteLine("Girdiğiniz değerler hatalı. ");
+        continue;
     }
-    else if(inputParts[0] == "get")
+    catch (UnknownDepartmentException)
     {
-        controller.GetUser()
+        Console.WriteLine("Bilinmeyen department değeri girildi.");
     }
-    else if (inputParts[0] == "search")
-    {
-        controller.Search( inputParts.Count == 5 ? inputParts[1] : inputParts[1] + " " + inputParts[2]);
-    }
-
-    //Bu şekilde tüm methodlarını oluştur.
 }
+
+

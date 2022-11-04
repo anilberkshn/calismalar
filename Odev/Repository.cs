@@ -4,31 +4,46 @@ namespace Odev;
 
 public class Repository
 {
-    public List<User> Users;
-    
-    public Repository(List<User> users)
+    private List<User> _users;
+    private string _filePath;       //= @"C:\Users\asuspc\Desktop\dosyaTest1.txt";
+
+    public Repository(List<User> users, string filePath)
     {
-        Users = users;
+        _users = users;
+        _filePath = filePath;
     }
-    
-    public void SaveDb(string _filePath)
+
+
+    // public void LoadDb(List<User> users)
+    // {
+    //     var jsonText = File.ReadAllText(_filePath);
+    //     var users2 = JsonConvert.DeserializeObject<List<User>>(jsonText);
+    //     if (users2 != null)
+    //     {
+    //         users = users2;
+    //     }
+    // }
+
+    public void SaveDb()
     {
-        var jsonText = JsonConvert.SerializeObject(Users.ToArray(), Formatting.Indented);
+        var jsonText = JsonConvert.SerializeObject(_users, Formatting.Indented);
         File.WriteAllText(_filePath, jsonText);
     }
     
     public void Insert(User user)
-    {
+    { 
+        _users.Add(user);
     }
     
-    public User GetById(string id)
+    public User? GetById(string id)
     {
-        return new User();
+
+        return _users.FirstOrDefault(x => x.Id == id);
     }
     
     public List<User> SearchByName(string keyword)
     {
-        return Users.Where(x=> x.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+        return _users.Where(x=> x.Name.Contains(keyword, StringComparison.OrdinalIgnoreCase))
             .ToList();
         //keyworde göre arama yap, elde ettiğin sonuçları dön
          
@@ -36,6 +51,6 @@ public class Repository
     
     public List<User> GetAll()
     {
-        return Users;
+        return _users;
     }
 }

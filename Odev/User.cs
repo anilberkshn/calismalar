@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace Odev;
 
 public class User
@@ -7,4 +9,9 @@ public class User
     public string Surname { get; set; }
     public int Department { get; set; }
     public bool Admin { get; set; }
+
+    public string PrintUser()
+    {
+        return  JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
 }
